@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_size_year">24sp</dimen>
+    <dimen name="text_size_date">40sp</dimen>
+    <dimen name="text_size_wheel_content">18sp</dimen>
+
+    <dimen name="default_margin_padding_x_small">2dp</dimen>
+    <dimen name="default_margin_padding">8dp</dimen>
+    <dimen name="default_margin_padding_large">16dp</dimen>
+
+    <dimen name="dialog_width">300dp</dimen>
+    <dimen name="top_container_padding">16dp</dimen>
+    <dimen name="dialog_margin">16dp</dimen>
+    <dimen name="wheel_height">200dp</dimen>
+    <dimen name="wheel_horizontal_padding">24dp</dimen>
+    <dimen name="wheel_vertical_padding">80dp</dimen>
+    <dimen name="wheel_day_width">40dp</dimen>
+    <dimen name="wheel_year_width">64dp</dimen>
+    <dimen name="highlight_height">40dp</dimen>
+    <dimen name="translucent_height">64dp</dimen>
+
+</resources>

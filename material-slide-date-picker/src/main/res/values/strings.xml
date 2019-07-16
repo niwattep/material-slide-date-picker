@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MaterialSlideDatePicker</string>
+    <string name="dialog_btn_cancel">CANCEL</string>
+    <string name="dialog_btn_ok">OK</string>
+</resources>

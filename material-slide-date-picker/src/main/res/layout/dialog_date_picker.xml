@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="@dimen/dialog_width"
+        android:layout_height="wrap_content"
+        android:background="@color/dialog_background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/top_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="@dimen/top_container_padding">
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_year"
+                tools:text="2019" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_date"
+                android:textStyle="bold"
+                tools:text="SAT, JUL 13" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/wheel_height">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/wheel_horizontal_padding"
+                android:paddingEnd="@dimen/wheel_horizontal_padding">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_day"
+                    android:layout_width="@dimen/wheel_day_width"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/wheel_vertical_padding"
+                    android:paddingBottom="@dimen/wheel_vertical_padding" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_month"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/default_margin_padding"
+                    android:layout_marginEnd="@dimen/default_margin_padding"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/wheel_vertical_padding"
+                    android:paddingBottom="@dimen/wheel_vertical_padding" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_year"
+                    android:layout_width="@dimen/wheel_year_width"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/wheel_vertical_padding"
+                    android:paddingBottom="@dimen/wheel_vertical_padding" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/highlight_height"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/wheel_horizontal_padding"
+                android:layout_marginEnd="@dimen/wheel_horizontal_padding"
+                android:background="@drawable/bg_selected_date" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/translucent_height"
+                android:layout_gravity="top"
+                android:background="@drawable/bg_translucent_white"
+                android:rotation="180" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/translucent_height"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_translucent_white" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/default_margin_padding">
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_btn_cancel"
+                android:textColor="@color/colorPrimary" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin_padding_large"
+                android:text="@string/dialog_btn_ok"
+                android:textColor="@color/colorPrimary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
+
