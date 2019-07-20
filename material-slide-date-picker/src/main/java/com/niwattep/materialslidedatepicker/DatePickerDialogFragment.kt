@@ -263,9 +263,12 @@ class DatePickerDialogFragment : DialogFragment() {
         viewModel.getDays().observe(this, Observer {
             dayAdapter.data = it
             dayAdapter.notifyDataSetChanged()
-
             viewModel.getCurrentDay().value?.let { day ->
                 val currentDayPosition = dayAdapter.getPositionByValue(day)
+                recyclerViewDay.alpha = 0f
+                recyclerViewDay.animate().alpha(1f).apply {
+                    duration = 200
+                }.start()
                 recyclerViewDay.scrollToPosition(currentDayPosition)
                 recyclerViewDay.smoothScrollToPosition(currentDayPosition)
             }
@@ -276,6 +279,10 @@ class DatePickerDialogFragment : DialogFragment() {
             monthAdapter.notifyDataSetChanged()
             viewModel.getCurrentMonth().value?.let { month ->
                 val currentMonthPosition = monthAdapter.getPositionByValue(month)
+                recyclerViewMonth.alpha = 0f
+                recyclerViewMonth.animate().alpha(1f).apply {
+                    duration = 200
+                }.start()
                 recyclerViewMonth.scrollToPosition(currentMonthPosition)
                 recyclerViewMonth.smoothScrollToPosition(currentMonthPosition)
             }
