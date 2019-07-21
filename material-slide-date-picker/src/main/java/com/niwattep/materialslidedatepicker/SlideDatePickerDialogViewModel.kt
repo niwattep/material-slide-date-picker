@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import java.util.*
 import kotlin.collections.ArrayList
 
-class DatePickerDialogViewModel(
+class SlideDatePickerDialogViewModel(
     private var startDate: Calendar,
     private var endDate: Calendar,
     currentDate: Calendar) : ViewModel() {

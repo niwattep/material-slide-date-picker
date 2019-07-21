@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 import kotlin.collections.ArrayList
 
-class WheelAdapter(private val type: Type) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SlideAdapter(private val type: Type) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var data: ArrayList<Int> = ArrayList()
 

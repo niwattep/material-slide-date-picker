@@ -4,7 +4,7 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <style name="WheelItemContent">
+    <style name="AdapterItemContent">
         <item name="android:textColor">@color/text_default</item>
         <item name="android:textSize">@dimen/text_size_wheel_content</item>
         <item name="android:padding">@dimen/default_margin_padding_x_small</item>

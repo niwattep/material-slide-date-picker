@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -20,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class DatePickerDialogFragment : DialogFragment() {
+class SlideDatePickerDialog : DialogFragment() {
 
     companion object {
         fun newInstance(
@@ -31,11 +32,11 @@ class DatePickerDialogFragment : DialogFragment() {
             locale: Locale? = null,
             @ColorInt themeColor: Int = -1,
             @ColorInt headerTextColor: Int = -1,
-            headerTextFormat: String? = null,
+            headerDateFormat: String? = null,
             showYear: Boolean = true,
             cancelText: String = "",
             confirmText: String = ""
-        ) = DatePickerDialogFragment().apply {
+        ) = SlideDatePickerDialog().apply {
             arguments = Bundle().apply {
                 startDate?.let { putSerializable(EXTRA_START_DATE, it) }
                 endDate?.let { putSerializable(EXTRA_END_DATE, it) }
@@ -44,7 +45,7 @@ class DatePickerDialogFragment : DialogFragment() {
                 locale?.let { putSerializable(EXTRA_LOCALE, it) }
                 putInt(EXTRA_THEME_COLOR, themeColor)
                 putInt(EXTRA_HEADER_TEXT_COLOR, headerTextColor)
-                headerTextFormat?.let { putString(EXTRA_HEADER_DATE_FORMAT, it) }
+                headerDateFormat?.let { putString(EXTRA_HEADER_DATE_FORMAT, it) }
                 putBoolean(EXTRA_SHOW_YEAR, showYear)
                 putString(EXTRA_CANCEL_TEXT, cancelText)
                 putString(EXTRA_CONFIRM_TEXT, confirmText)
@@ -64,7 +65,7 @@ class DatePickerDialogFragment : DialogFragment() {
         const val EXTRA_CONFIRM_TEXT = "extra-confirm-text"
     }
 
-    private lateinit var viewModel: DatePickerDialogViewModel
+    private lateinit var viewModel: SlideDatePickerDialogViewModel
 
     private lateinit var rootView: View
     private val topContainer: LinearLayout by lazy { rootView.findViewById<LinearLayout>(R.id.top_container) }
@@ -76,9 +77,9 @@ class DatePickerDialogFragment : DialogFragment() {
     private val btnCancel: Button by lazy { rootView.findViewById<Button>(R.id.btn_cancel) }
     private val btnConfirm: Button by lazy { rootView.findViewById<Button>(R.id.btn_confirm) }
 
-    private val dayAdapter = WheelAdapter(WheelAdapter.Type.DAY)
-    private val monthAdapter = WheelAdapter(WheelAdapter.Type.MONTH)
-    private val yearAdapter = WheelAdapter(WheelAdapter.Type.YEAR)
+    private val dayAdapter = SlideAdapter(SlideAdapter.Type.DAY)
+    private val monthAdapter = SlideAdapter(SlideAdapter.Type.MONTH)
+    private val yearAdapter = SlideAdapter(SlideAdapter.Type.YEAR)
     private val daySnapHelper = LinearSnapHelper()
     private val monthSnapHelper = LinearSnapHelper()
     private val yearSnapHelper = LinearSnapHelper()
@@ -101,7 +102,7 @@ class DatePickerDialogFragment : DialogFragment() {
     private var locale: Locale = Locale.US
     @ColorInt private var themeColor: Int = -1
     @ColorInt private var headerTextColor: Int = -1
-    private var headerDateFormat: String = "EEE, MMM dd"
+    private var headerTextFormat: String = "EEE, MMM dd"
     private var showYear = true
     private var cancelText = ""
     private var confirmText = ""
@@ -113,14 +114,14 @@ class DatePickerDialogFragment : DialogFragment() {
         } ?: run {
             restoreArgument(arguments)
         }
-        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.BaseDialogStyle)
+        setStyle(STYLE_NO_TITLE, R.style.BaseDialogStyle)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.dialog_date_picker, container, false)
+        rootView = inflater.inflate(R.layout.dialog_slide_date_picker, container, false)
         return rootView
     }
 
@@ -129,10 +130,10 @@ class DatePickerDialogFragment : DialogFragment() {
 
         viewModel = ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return DatePickerDialogViewModel(startDate, endDate, preselectedDate) as T
+                return SlideDatePickerDialogViewModel(startDate, endDate, preselectedDate) as T
             }
 
-        }).get(DatePickerDialogViewModel::class.java)
+        }).get(SlideDatePickerDialogViewModel::class.java)
         initialize()
         observe()
     }
@@ -146,7 +147,7 @@ class DatePickerDialogFragment : DialogFragment() {
             getSerializable(EXTRA_LOCALE)?.let { locale = it as Locale }
             getInt(EXTRA_THEME_COLOR, -1).let { themeColor = it }
             getInt(EXTRA_HEADER_TEXT_COLOR, -1).let { headerTextColor = it }
-            getString(EXTRA_HEADER_DATE_FORMAT, "").let { headerDateFormat = it }
+            getString(EXTRA_HEADER_DATE_FORMAT, "").let { headerTextFormat = it }
             getBoolean(EXTRA_SHOW_YEAR, true).let { showYear = it }
             getString(EXTRA_CANCEL_TEXT, "").let { cancelText = it }
             getString(EXTRA_CONFIRM_TEXT, "").let { confirmText = it }
@@ -162,7 +163,7 @@ class DatePickerDialogFragment : DialogFragment() {
             putSerializable(EXTRA_LOCALE, locale)
             putInt(EXTRA_THEME_COLOR, themeColor)
             putInt(EXTRA_HEADER_TEXT_COLOR, headerTextColor)
-            putString(EXTRA_HEADER_DATE_FORMAT, headerDateFormat)
+            putString(EXTRA_HEADER_DATE_FORMAT, headerTextFormat)
             putBoolean(EXTRA_SHOW_YEAR, showYear)
             putString(EXTRA_CANCEL_TEXT, cancelText)
             putString(EXTRA_CONFIRM_TEXT, confirmText)
@@ -181,7 +182,7 @@ class DatePickerDialogFragment : DialogFragment() {
             getSerializable(EXTRA_LOCALE)?.let { locale = it as Locale }
             getInt(EXTRA_THEME_COLOR, -1).let { themeColor = it }
             getInt(EXTRA_HEADER_TEXT_COLOR, -1).let { headerTextColor = it }
-            getString(EXTRA_HEADER_DATE_FORMAT, "").let { headerDateFormat = it }
+            getString(EXTRA_HEADER_DATE_FORMAT, "").let { headerTextFormat = it }
             getBoolean(EXTRA_SHOW_YEAR, true).let { showYear = it }
             getString(EXTRA_CANCEL_TEXT, "").let { cancelText = it }
             getString(EXTRA_CONFIRM_TEXT, "").let { confirmText = it }
@@ -234,8 +235,8 @@ class DatePickerDialogFragment : DialogFragment() {
             tvYear.visibility = View.GONE
         }
 
-        if (headerDateFormat.isEmpty()) {
-            headerDateFormat = "EEE, MMM dd"
+        if (headerTextFormat.isEmpty()) {
+            headerTextFormat = "EEE, MMM dd"
         }
 
         if (cancelText.isNotBlank()) {
@@ -299,7 +300,7 @@ class DatePickerDialogFragment : DialogFragment() {
         })
 
         viewModel.getCalendar().observe(this, Observer {
-            tvDate.text = SimpleDateFormat(headerDateFormat, locale).format(it.time)
+            tvDate.text = SimpleDateFormat(headerTextFormat, locale).format(it.time)
         })
 
         viewModel.getCurrentYear().observe(this, Observer {
@@ -359,12 +360,84 @@ class DatePickerDialogFragment : DialogFragment() {
         recyclerViewYear.removeOnScrollListener(yearScrollListener)
     }
 
-    private fun getListener(): DatePickerDialogFragmentCallback? {
+    private fun getListener(): SlideDatePickerDialogCallback? {
         return when {
-            parentFragment != null -> (parentFragment as? DatePickerDialogFragmentCallback)
-            activity != null -> (activity as? DatePickerDialogFragmentCallback)
+            parentFragment != null -> (parentFragment as? SlideDatePickerDialogCallback)
+            activity != null -> (activity as? SlideDatePickerDialogCallback)
             else -> null
         }
+    }
+
+    class Builder() {
+        private var startDate: Calendar? = null
+        private var endDate: Calendar? = null
+        private var preselectedDate: Calendar? = null
+        private var yearModifier: Int = 0
+        private var locale: Locale? = null
+        @ColorInt private var themeColor: Int = -1
+        @ColorInt private var headerTextColor: Int = -1
+        private var headerDateFormat: String? = null
+        private var showYear = true
+        private var cancelText = ""
+        private var confirmText = ""
+
+        fun setStartDate(startDate: Calendar): Builder = this.apply {
+            this.startDate = startDate
+        }
+
+        fun setEndDate(endDate: Calendar): Builder = this.apply {
+            this.endDate = endDate
+        }
+
+        fun setPreselectedDate(preselectedDate: Calendar): Builder = this.apply {
+            this.preselectedDate = preselectedDate
+        }
+
+        fun setYearModifier(yearModifier: Int): Builder = this.apply {
+            this.yearModifier = yearModifier
+        }
+
+        fun setLocale(locale: Locale): Builder = this.apply {
+            this.locale = locale
+        }
+
+        fun setThemeColor(@ColorInt themeColor: Int): Builder = this.apply {
+            this.themeColor = themeColor
+        }
+
+        fun setHeaderTextColor(@ColorRes headerTextColor: Int): Builder = this.apply {
+            this.headerTextColor = headerTextColor
+        }
+
+        fun setHeaderDateFormat(headerDateFormat: String): Builder = this.apply {
+            this.headerDateFormat = headerDateFormat
+        }
+
+        fun setShowYear(showYear: Boolean): Builder = this.apply {
+            this.showYear = showYear
+        }
+
+        fun setCancelText(cancelText: String): Builder = this.apply {
+            this.cancelText = cancelText
+        }
+
+        fun setConfirmText(confirmText: String): Builder = this.apply {
+            this.confirmText = confirmText
+        }
+
+        fun build(): SlideDatePickerDialog = SlideDatePickerDialog.newInstance(
+            startDate,
+            endDate,
+            preselectedDate,
+            yearModifier,
+            locale,
+            themeColor,
+            headerTextColor,
+            headerDateFormat,
+            showYear,
+            cancelText,
+            confirmText
+        )
     }
 
 }

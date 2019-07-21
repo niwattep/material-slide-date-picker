@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.niwattep.materialslidedatepicker.DatePickerDialogFragment
-import com.niwattep.materialslidedatepicker.DatePickerDialogFragmentCallback
+import com.niwattep.materialslidedatepicker.SlideDatePickerDialog
+import com.niwattep.materialslidedatepicker.SlideDatePickerDialogCallback
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), DatePickerDialogFragmentCallback {
+class MainActivity : AppCompatActivity(), SlideDatePickerDialogCallback {
 
     private val btnOpen: Button by lazy { findViewById<Button>(R.id.btn_open) }
     private val btnOpenTh: Button by lazy { findViewById<Button>(R.id.btn_open_th) }
@@ -19,16 +19,24 @@ class MainActivity : AppCompatActivity(), DatePickerDialogFragmentCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
             btnOpen.setOnClickListener {
-                DatePickerDialogFragment.newInstance()
+                SlideDatePickerDialog.newInstance()
                     .show(supportFragmentManager, "TAG")
             }
             btnOpenTh.setOnClickListener {
-                DatePickerDialogFragment.newInstance(
-                    locale = Locale("th"),
-                    yearModifier = 543,
-                    headerTextFormat = "EEE dd MMMM",
-                    cancelText = "ยกเลิก",
-                    confirmText = "ตกลง")
+                SlideDatePickerDialog.Builder()
+                    .setLocale(Locale("th"))
+                    .setYearModifier(543)
+                    .setHeaderDateFormat("EEE dd MMMM")
+                    .setCancelText("ยกเลิก")
+                    .setConfirmText("ตกลง")
+                    .setEndDate(Calendar.getInstance().apply {
+                        add(Calendar.DATE, 15)
+                    })
+                    .setStartDate(Calendar.getInstance().apply {
+                        set(Calendar.DATE, this.get(Calendar.DATE) - 0)
+                    })
+                    .setPreselectedDate(Calendar.getInstance())
+                    .build()
                     .show(supportFragmentManager, "TAG")
             }
 

@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/tv_month"
-        style="@style/WheelItemContent"
+        style="@style/AdapterItemContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
