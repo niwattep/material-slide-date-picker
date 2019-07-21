@@ -4,6 +4,8 @@
 
 A slide date picker for Android.
 
+![alt text](https://github.com/niwattep/material-slide-date-picker/blob/master/image/image.jpg)
+
 ## Prerequisites
 
 This library uses [AndroidX library](https://developer.android.com/jetpack/androidx). If your project uses Android Support Library, consider [migrating your project to AndroidX](https://developer.android.com/jetpack/androidx/migrate).
