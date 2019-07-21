@@ -88,5 +88,6 @@ There are 11 things you can customize:
 10. `CancelText` - String of cancel button
 11. `ConfirmText` - String of confirm button
 
+# Acknowledgment
 
-
+This library is inspired by https://github.com/akexorcist/Android-SnapTimePicker
