@@ -91,3 +91,9 @@ There are 11 things you can customize:
 # Acknowledgment
 
 This library is inspired by https://github.com/akexorcist/Android-SnapTimePicker
+
+# Donation
+
+Give me a cup of coffee ☕
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DNSPEEFN6ELQ8&source=url)
